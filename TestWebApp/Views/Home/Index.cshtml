@@ -1,21 +1,19 @@
 ﻿@model TestVideoSourceModel
 <input type="file" id="file" onchange="onFileChange()" />
-<video id="my-video"
+	@foreach (string inputs in @Model.Paths)
+	@if (inputs.Contains(".mp4"))
+	{
+		<video id="my-video"
 	   class="video-js"
 	   controls
 	   preload="auto"
-	   autoplay
 	   width="640"
-	   height="264"
-	   data-setup="{}">
-	@foreach (string inputs in @Model.Paths)
-		@if (inputs.Contains("mp4"))
-		{
+	   height="264">
 		 <source src="/Videos/@System.IO.Path.GetFileName(inputs)" type="video/mp4" />
-		}
- <p class="vjs-no-js">
-  To view this video please enable JavaScript, and consider upgrading to a
-  web browser that
-  <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
- </p>
-</video>
+		 <p class="vjs-no-js">
+		  To view this video please enable JavaScript, and consider upgrading to a
+		  web browser that
+		  <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+		 </p>
+		</video>
+	}
