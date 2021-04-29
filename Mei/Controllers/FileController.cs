@@ -7,13 +7,15 @@ using TestWebApp.Models;
 using IOFile = System.IO.File;
 
 namespace Mei.Controllers {
+    [Route("[controller]")]
+    [ApiController]
     public class FileController : Controller {
         private readonly ILogger<FileController> _logger;
 
         public FileController(ILogger<FileController> logger) {
             _logger = logger;
         }
-
+        [HttpGet]
         [ResponseCache(Duration = 36000, Location = ResponseCacheLocation.Client)]
         public IActionResult ServeFile(string name) {
             var provider = new FileExtensionContentTypeProvider();
