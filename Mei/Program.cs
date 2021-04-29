@@ -39,6 +39,8 @@ namespace TestWebApp {
                 sw.Stop();
                 Timer t = new Timer(1000);
                 t.Elapsed += T_Elapsed;
+                t.AutoReset = false;
+                t.Start();
                 //List<Type> expectedparams = new List<Type> { typeof(ICoreHandler), typeof(ulong), typeof(ulong), typeof(string) };
                 /*foreach (string assembly in Directory.GetFiles("Modules", "*Module.dll")) {
                     log.Info($"Found possible Module container {Path.GetFileName(assembly)}");
@@ -71,9 +73,22 @@ namespace TestWebApp {
                 log.Fatal(ex);
             }
         }
+        private void search(string path) {
+            List<string> extensions = new List<string> { "mp4", "webm" };
+            try {
+                foreach (string directory in Directory.GetDirectories(path)) {
+                    search(directory);
+                }
+                foreach (string extension in extensions) {
+                    foreach (string videos in Directory.GetFiles(path, $"*.{extension}")) {
+                        Console.WriteLine(videos);
+                    }
+                }
+            } catch (UnauthorizedAccessException) { }
+        }
 
-        private void T_Elapsed(object sender, ElapsedEventArgs e) { 
-        
+        private void T_Elapsed(object sender, ElapsedEventArgs e) {
+            search("D:\\");
         }
     }
 }
