@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace TestWebApp {
     public class Program {
@@ -36,6 +37,8 @@ namespace TestWebApp {
                 log.Info("Initializing discord connection...");
                 sw.Start();
                 sw.Stop();
+                Timer t = new Timer(1000);
+                t.Elapsed += T_Elapsed;
                 //List<Type> expectedparams = new List<Type> { typeof(ICoreHandler), typeof(ulong), typeof(ulong), typeof(string) };
                 /*foreach (string assembly in Directory.GetFiles("Modules", "*Module.dll")) {
                     log.Info($"Found possible Module container {Path.GetFileName(assembly)}");
@@ -67,6 +70,10 @@ namespace TestWebApp {
             } catch (Exception ex) {
                 log.Fatal(ex);
             }
+        }
+
+        private void T_Elapsed(object sender, ElapsedEventArgs e) { 
+        
         }
     }
 }

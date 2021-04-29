@@ -13,7 +13,11 @@ namespace TestWebApp.Controllers {
         }
 
         public IActionResult Index() {
-            return View(new TestVideoSourceModel { Paths = Directory.GetFiles("D:\\VPVideos") });
+            if (Request.Query["path"].Count != 0) {
+                string path = Request.Query["path"][0];
+                return View(new TestVideoSourceModel { Paths = Directory.GetFiles($"D:\\{path}") });
+            } else
+                return View(new TestVideoSourceModel { Paths = Directory.GetFiles($"D:\\VPVideos") });
         }
 
         public IActionResult Privacy() {
